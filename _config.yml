@@ -6,7 +6,8 @@ description: 欢迎来到我的个人站~
 avatarTitle: ZPom Lee
 # 头像里面的描述
 avatarDesc: Java / 前端学习
-url: "https://pom.github.io"
+url: "https://Pom.github.io"
+force-https: True
 
 # Comment评论
 #comment:
