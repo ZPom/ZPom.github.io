@@ -807,6 +807,8 @@ img::-moz-selection {
     list-style-type: none;
     text-align: left; 
     display: inline-block;
+	clear: both;
+    width: 100%;
   }
   .post-list li {
     margin: 0 0 2.2em 0;
@@ -824,6 +826,8 @@ img::-moz-selection {
     -4px -4px 4px #efefef, 
     4px -4px 4px #efefef, 
     -4px 4px 4px #efefef;
+	clear: both;
+	width: 100%;
   }
   .post-list li:hover {
     /*transform:scale(1.01,1.01); */
