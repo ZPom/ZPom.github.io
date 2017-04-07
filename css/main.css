@@ -872,6 +872,7 @@ img::-moz-selection {
   font-size: .9em;
   color: #c7c7c7; 
   display: inline-block;
+  width: 100%;
 }
 
 .tag-img-icon img{
