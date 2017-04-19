@@ -4,12 +4,15 @@ title: "Window open()及窗口居中"
 date:  2017-4-19
 description: "Window open()及窗口居中"
 tag: JavaScript 
+
 ---
 **定义和用法**
 
 > open() 方法用于打开一个新的浏览器窗口或查找一个已命名的窗口。
+
 ----------
 **语法**
+
 > ``window.open(URL,name,specs,replace)``
 
 | 参数    |     说明|
