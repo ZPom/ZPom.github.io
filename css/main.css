@@ -830,6 +830,12 @@ img::-moz-selection {
     -4px 4px 4px #efefef;
 	clear: both;
 	width: 100%;
+	position: relative;
+    top: 0;
+    transition:top .3s;
+	-webkit-transition:top .3s;
+	-ms-transition:top .3s;
+	-moz-transition:top .3s;
   }
   .post-list li:hover {
     /*transform:scale(1.01,1.01); */
@@ -845,6 +851,7 @@ img::-moz-selection {
     -4px -4px 4px #c9e1f6, 
     4px -4px 4px #c9e1f6, 
     -4px 4px 4px #c9e1f6;
+	top:-3px;
     /*background-color: #F5FFFA;*/
   }
 
