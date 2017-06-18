@@ -1,0 +1,236 @@
+---
+layout: post
+title: "React入门 "
+date: 2017-6-18
+description: "React入门"
+tag: React 
+---   
+>1.引入“react.js”(核心库)、"react-dom.js"（提供与DOM相关功能）、
+"Brower.js"（将JSX语法转化为JavaScript语法）;
+
+>2.JSX语法的script标签type类型为"text/label";
+
+>3.ReactDOM.render()语法，用于将模版转化为HTML语言；
+```
+<div id="example"></div>
+<script type="text/label">
+ReactDOM.render(
+    <h1>Hello World!</h1>,
+    document.getElementById("example")
+)
+</script>
+```
+
+>4.JSX语法规则:遇到（以`<`开头）就用HTML规则解析，遇到代码块（以`{`开头）就用JavaScript规则解析；
+```
+<div id="example"></div>
+<script type="text/label">
+var names=["仇东标","王一凡",“李制蓬”];
+ReactDOM.render(
+    {
+        names.map(function(name, index)){
+            return <div key={index}>Hello, {name}!</div>
+        }
+    }
+    document.getElementById("example");
+)
+</script>
+```
+
+>5.JSX允许在模版中插入变量，如果是数据则会直接展开；
+```
+<div id="example"></div>
+<script type="text/label">
+var args=[
+        <span>Hello, 仇东标！</span>,
+        <span>Hello, 王一凡！</span>,
+        <span>Hello, 李制蓬！</span>
+    ];
+ReactDOM.render(
+    <div>
+        {args}
+    </div>,
+    document.getElementById("example");
+);
+</script>
+```
+>6.React允许将代码封装成组件，然后像插入HTML标签一样在代码中插入组件，`React.createClass()`生成一个组件类；
+```
+<div id="example"></div>
+<script type="text/label">
+    var HelloMsg = React.createClass({
+        render:function(){
+            return <p>Hello,{this.props.name}</p>;
+        }
+    })
+    ReactDOM.render(
+        <HelloMsg name="李制蓬"/>,
+        document.getElementById("example");
+    )
+</script>
+1.组件命名规则首字母必须大写；
+2.模版插入<HelloMsg />会自动生成HelloMsg的一个实例，所有组件类必须有自己的render方法，用于输出组件；
+3.组件类只能包含一个顶层标签，否则会报错；
+4.组件的用法与原生HTML标签一样可以任意添加属性，比如<HelloMsg name="李制蓬" />就是个HelloMsg添加了一个name属性，
+组件的属性可以在组件类的this.props上获取，比如this.props.name;;
+5.class属性需要写成className，for属性需要写成htmlFor,这是因为class和for是js的保留关键字。
+```
+>7.this.props.children表示组件的所有子节点 [官方文档](https://facebook.github.io/react/docs/react-api.html)；
+```
+<div id="example"></div>
+<script type="text/label">
+    var NodeList = React.createClass({
+        render: function(){
+            return (
+                <ol>
+                {
+                    React.Children.map(this.props.children, function(child){
+                        return <li>{child}</li>;
+                    }) 
+                }
+                </ol>
+            )
+        }
+    });
+    
+    ReactDOM.render(
+        <NodeList>
+            <span>仇东标</span>,
+            <span>王一凡</span>,
+            <span>李制蓬</span>
+        </NodeList>,
+        document.getElementById("example");
+    )
+</script>
+1.this.props.children有三种可能，如果组件没有节点返回就是undefind,有一个节点返回就是Object，多个节点返回Array;
+2.React提供了一个工具类方法，React.Children.map来遍历子节点。
+```
+>8.PropTypes  [官方文档](https://facebook.github.io/react/docs/components-and-props.html)
+
+组件的属性可以接收任意值，字符串、对象、函数都可以，有时我们需要一种机制来验证别人使用组件传入的参数是否符合要求；
+```
+<div id="example"></div>
+<script type="text/label">
+    var MyTitle = React.createClass({
+        PropTypes:{
+            title:React.PropTypes.string.isrequired
+        },
+        render:function(){
+            return <h1>{this.props.title}</h1>
+        }
+    });
+    
+    var data = "";
+    ReactDOM.render(
+        <MyTitle title={data} />,
+        document.getElementById("example")
+    )
+</script>
+```
+此外getdefaultProp可以用来设置组件的默认属性
+```
+var MyTitle = React.createClass({
+    getDefaultProps:funtion(){
+        return {
+            title:"Hello World!";
+        };
+    },
+    render:function(){
+        return <h1>{this.props.title}</h1>
+    }
+})
+
+ReactDOM.render(
+<MyTitle />
+document.body
+);
+页面展示为"Hello World!"
+```
+>9.获取真是的DOM元素[官方文档](https://facebook.github.io/react/docs/events.html#supported-events)
+组件并不是真是的DOM元素，而是存在于内存中的一种数据结构，叫做虚拟DOM(virtual DOM),只有当它插入文档以后，
+才会变成真实的 DOM 。根据 React 的设计，所有的 DOM 变动，都先在虚拟 DOM 上发生，然后再将实际发生变动的部分，
+反映在真实 DOM上，这种算法叫做 [DOM diff](https://calendar.perfplanet.com/2013/diff/) ，它可以极大提高网页的性能表现。
+```
+<div id="example"></div>
+<script type="text/label">
+    var MyComponent = React.createClass({
+        handleClick:functionn(){
+            this.refs.myTextInput.focus();
+        },
+        render:function() {   
+            <div>
+                <input type="text" refs="myTextInput"/>
+                <inpout type="buttton" value="Click" onClick={this.handleClick}/>
+            </div>
+        }
+    });
+    
+    CreactDOM.render(
+        <MyComponent/>,
+        document.getElementById("example")
+    )
+</script>
+```
+>10.this.state
+组件免不了互动，React将组件看成一个状态机，一开始有一个初始状态，然后用户互动，导致状态变化。
+```
+<div id="example"></div>
+<script type="text/label">
+    var ButtonLink = React.createClass({
+        getInitialState:function(){
+            return {liked:false};
+        },
+        handleClick:function(event){
+            this.setStatus({liked: !this.state.liked});
+        },
+        render:function(){
+            var text = this.state.liked ? 'like' : 'haven\'t liked';
+            return (
+                <p onClick={this.handleClick}>
+                      You {text} this.Click to toggle.
+                </p>
+            )
+        }
+    });
+    
+    ReactDOM.render(
+        <ButtonLink/>,
+        document.getElementById("example")
+    );
+</script>
+1.getInitialState用于定义组件初始状态，也是一个对象，可以通过this.state来读取属性。
+2.this.props表示一旦定义就不再改变的特性，this.state表示随着用户互动而产生变化的特性。
+```
+>11.表单
+用户输入表单内容属于组件交互，所以不能用this.props读取。
+```
+<script type="text/label">
+    var Input=React.createClass({
+        getInitialState:function(){
+            return {value:"Hello"};
+        },
+        handleChange:function(event){
+            this.setState({value:event.target.value});
+        },
+        render:function(){
+            var value = this.state.value;
+            return (
+                <div>
+                    <input type="text" value={value} onChange={this.handleChange}/>
+                    <p>{value}</p>
+                </div>
+            );
+        }
+    })
+    
+    ReactDOM.render(
+        <Input/>,
+        document.body
+    );
+</script>
+```
+
+>12.生命周期...
+
+>13.Ajax....
+
