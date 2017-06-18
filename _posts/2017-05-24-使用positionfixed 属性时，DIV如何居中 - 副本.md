@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "使用position:fixed 属性时，DIV如何居中？"
-date: 2017-5-23
+date: 2017-5-24
 description: "position:fixed,DIV居中"
 tag: CSS 
 ---   
